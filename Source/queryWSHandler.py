@@ -2,26 +2,25 @@ from Source.queryObj import QueryObj
 
 
 def getQueryData(patientDict, queryWS, outputWS):
-    # insert header
+    # insert header and freeze and filter
     for column in range(1, 13):
         outputWS.cell(column=column, row=1,
                       value=queryWS.cell(column=column, row=1).value)
-
     outputWS.cell(column=13, row=1, value=queryWS.cell(column=21, row=1).value)
+    outputWS.freeze_panes = "N2"
+    outputWS.auto_filter.ref = 'A1:M' + str(queryWS.max_row + 1)
 
     # form list of id's to be sorted
     patientList = []
 
     for row in range(2, queryWS.max_row + 1):
         patientID = queryWS.cell(column=4, row=row).value
-        print("Checking patient for query list: " + str(patientID))
         if int(patientID) in patientDict:
-            print("    Adding patient for query list: " + str(patientID))
             # grab data and store into obj
             columnA = queryWS.cell(column=1, row=row).value
             columnB = queryWS.cell(column=2, row=row).value
             columnC = queryWS.cell(column=3, row=row).value
-            columnD = queryWS.cell(column=4, row=row).value
+            columnD = int(queryWS.cell(column=4, row=row).value)
             columnE = queryWS.cell(column=5, row=row).value
             columnF = queryWS.cell(column=6, row=row).value
             columnG = queryWS.cell(column=7, row=row).value
