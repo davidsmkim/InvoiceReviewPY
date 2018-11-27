@@ -11,6 +11,12 @@ def findPatientIDColumn(cancerStatusWS):
             return column
 
 
+def findSiteColumn(cancerStatusWS):
+    for column in range(1, cancerStatusWS.max_column + 1):
+        if cancerStatusWS.cell(column=column, row=1).value == "Site":
+            return column
+
+
 def validateCancerStatus(patientDict, cancerStatusWS, writeWS):
     # find column for patientID:
     patientIDColumn = findPatientIDColumn(cancerStatusWS)
@@ -69,8 +75,9 @@ def validateCancerStatus(patientDict, cancerStatusWS, writeWS):
 
 
 def validateSiteLocations(patientDict, cancerStatusWS, writeWS):
-    # find column for patientID:
+    # find column for patientID and sites:
     patientIDColumn = findPatientIDColumn(cancerStatusWS)
+    siteLocationColumn = findSiteColumn(cancerStatusWS)
 
     # error log list
     errorLog = []
@@ -83,7 +90,8 @@ def validateSiteLocations(patientDict, cancerStatusWS, writeWS):
 
         # add site location to output worksheet and remove from patient list
         if patientIDCell.value in patientDict:
-            siteLocationCell = cancerStatusWS.cell(column=4, row=row)
+            siteLocationCell = cancerStatusWS.cell(
+                column=siteLocationColumn, row=row)
             writeWS.cell(column=siteColumn, row=patientDict[patientIDCell.value].cellLocation[1] + 1,
                          value=siteLocationCell.value)
             try:
