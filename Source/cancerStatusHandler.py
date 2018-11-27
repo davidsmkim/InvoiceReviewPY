@@ -20,6 +20,7 @@ def findSiteColumn(cancerStatusWS):
 def validateCancerStatus(patientDict, cancerStatusWS, writeWS):
     # find column for patientID:
     patientIDColumn = findPatientIDColumn(cancerStatusWS)
+    siteLocationColumn = findSiteColumn(cancerStatusWS)
 
     # track errors
     errorLogList = []
