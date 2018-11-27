@@ -1,6 +1,4 @@
 # InvoiceReviewPY
-Automated script for reviewing and compiling results for invoices
+Script to review invoices, compare data, mark discrepancies, and output new file based upon requested specifications.
 
-For internal use within Gr---.
-
-This script validates and compiles relevant data and outputs formated data per requested specifications.
+For internal use at GR***.
